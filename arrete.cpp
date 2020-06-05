@@ -4,3 +4,7 @@ Arrete::Arrete()
 {
 
 }
+Arrete::Arrete(Sommet* a,Sommet* b)
+{
+
+}

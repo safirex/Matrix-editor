@@ -20,12 +20,16 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     matrice.cpp \
+    matricebutton.cpp \
+    matricetable.cpp \
     sommet.cpp
 
 HEADERS += \
     arrete.h \
     mainwindow.h \
     matrice.h \
+    matricebutton.h \
+    matricetable.h \
     sommet.h
 
 FORMS += \

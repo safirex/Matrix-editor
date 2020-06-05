@@ -3,7 +3,7 @@
 #include <string>
 #include <list>
 #include <arrete.h>
-
+using namespace std;
 class Sommet
 {
 public:
@@ -11,15 +11,16 @@ public:
     Sommet(std::string f);
     int getDegree();
     void linkTo(std::string s);
-    std::list<Sommet> getListSommet();
-
+    std::list<Sommet*> getListSommet();
+    string getName();
 private :
     std::string name;
 
-    static std::list<Sommet> listSommet;
     std::list<Arrete> listArretes;
 
-    void addArrete(Sommet s);
+    void addArrete(Sommet* s);
 };
 
 #endif // SOMMET_H
+
+

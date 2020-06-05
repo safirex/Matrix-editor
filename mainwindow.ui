@@ -18,21 +18,21 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="loadButton">
         <property name="text">
          <string>Charger</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_4">
+       <widget class="QPushButton" name="saveButton">
         <property name="text">
          <string>Sauvegarder</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_5">
+       <widget class="QPushButton" name="printButtton">
         <property name="text">
          <string>Imprimer</string>
         </property>
@@ -87,41 +87,20 @@
       </item>
       <item>
        <layout class="QGridLayout" name="gridLayout">
-        <item row="1" column="0">
-         <widget class="QTableWidget" name="tableWidget">
-          <row>
-           <property name="text">
-            <string>A</string>
-           </property>
-          </row>
-          <row>
-           <property name="text">
-            <string>B</string>
-           </property>
-          </row>
-          <column>
-           <property name="text">
-            <string>A</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
-            <string>B</string>
-           </property>
-          </column>
-         </widget>
-        </item>
+        <property name="sizeConstraint">
+         <enum>QLayout::SetNoConstraint</enum>
+        </property>
         <item row="0" column="0">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="addButton">
             <property name="text">
              <string>+</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="MatriceButton" name="removeButton">
             <property name="enabled">
              <bool>false</bool>
             </property>
@@ -131,6 +110,41 @@
            </widget>
           </item>
          </layout>
+        </item>
+        <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+         <widget class="MatriceTable" name="tableWidget">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <row>
+           <property name="text">
+            <string>A</string>
+           </property>
+          </row>
+          <row>
+           <property name="text">
+            <string>B</string>
+           </property>
+          </row>
+          <column>
+           <property name="text">
+            <string>A</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>B</string>
+           </property>
+          </column>
+          <item row="0" column="0">
+           <property name="flags">
+            <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+           </property>
+          </item>
+         </widget>
         </item>
        </layout>
       </item>
@@ -207,6 +221,38 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>MatriceTable</class>
+   <extends>QTableWidget</extends>
+   <header>matricetable.h</header>
+   <slots>
+    <slot>addElement()</slot>
+   </slots>
+  </customwidget>
+  <customwidget>
+   <class>MatriceButton</class>
+   <extends>QPushButton</extends>
+   <header>matricebutton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>addButton</sender>
+   <signal>clicked()</signal>
+   <receiver>tableWidget</receiver>
+   <slot>addElement()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>332</x>
+     <y>200</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>340</x>
+     <y>464</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

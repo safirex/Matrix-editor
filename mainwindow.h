@@ -2,6 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <matrice.h>
+#include <matricebutton.h>
+#include <matricetable.h>
+#include <sommet.h>
+#include <arrete.h>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,7 +21,6 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
 
 private:
     Ui::MainWindow *ui;
