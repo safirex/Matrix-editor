@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     arrete.cpp \
+    dialog.cpp \
     main.cpp \
     mainwindow.cpp \
     matrice.cpp \
@@ -26,6 +27,7 @@ SOURCES += \
 
 HEADERS += \
     arrete.h \
+    dialog.h \
     mainwindow.h \
     matrice.h \
     matricebutton.h \
@@ -33,9 +35,12 @@ HEADERS += \
     sommet.h
 
 FORMS += \
+    dialog.ui \
     mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+DISTFILES +=

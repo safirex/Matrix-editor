@@ -9,16 +9,23 @@ class Sommet
 public:
 
     Sommet(std::string f);
-    int getDegree();
     void linkTo(std::string s);
+    void linkTo(Sommet* s);
+    void linkTo(Sommet* s,float value);
     std::list<Sommet*> getListSommet();
+    list<Arrete>* getListArretes();
+
+    string toString();
+    bool isSommet(string s);
+    void addArrete(Sommet* s, float value);
+    bool checkHaveArrete(string s);
+    int getDegree();
     string getName();
+    Arrete* getArreteTo(string s);
 private :
     std::string name;
-
     std::list<Arrete> listArretes;
-
-    void addArrete(Sommet* s);
+    static std::list<Sommet*> listSommet;
 };
 
 #endif // SOMMET_H

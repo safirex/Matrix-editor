@@ -3,7 +3,11 @@
 #include <sommet.h>
 #include <string>
 #include <list>
+#include<sommet.h>
+#include <vector>
 using namespace std;
+class Sommet;
+
 class Matrice
 {
 public:
@@ -18,8 +22,13 @@ public:
     bool isConnex();
     void removeSommet(string s);
     void addSommet(string s);
+    Sommet* getSommetNum(int i);
+    string toString();
+    void getCalculationTab(vector<float>&);
+    void calculTransposee(vector<float>& emptyVector);
+
 private:
-    std::list<Sommet> listSommet;
+    list<Sommet> listSommet;
     void updateValues();
     void updateTaille();
     void updateOrdre();

@@ -6,9 +6,14 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>822</width>
+    <height>522</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>MS Shell Dlg 2</family>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
@@ -65,7 +70,7 @@
       <item>
        <widget class="QGraphicsView" name="graphicsView">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
@@ -77,6 +82,9 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>40</width>
@@ -86,14 +94,36 @@
        </spacer>
       </item>
       <item>
-       <layout class="QGridLayout" name="gridLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_4">
         <property name="sizeConstraint">
          <enum>QLayout::SetNoConstraint</enum>
         </property>
-        <item row="0" column="0">
+        <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="sizeConstraint">
+           <enum>QLayout::SetNoConstraint</enum>
+          </property>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
           <item>
            <widget class="QPushButton" name="addButton">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>+</string>
             </property>
@@ -104,20 +134,57 @@
             <property name="enabled">
              <bool>false</bool>
             </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
             <property name="text">
              <string>-</string>
             </property>
            </widget>
           </item>
+          <item>
+           <spacer name="horizontalSpacer_5">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
          </layout>
         </item>
-        <item row="1" column="0" alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+        <item alignment="Qt::AlignHCenter">
          <widget class="MatriceTable" name="tableWidget">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
             <horstretch>0</horstretch>
             <verstretch>0</verstretch>
            </sizepolicy>
+          </property>
+          <property name="frameShape">
+           <enum>QFrame::StyledPanel</enum>
+          </property>
+          <property name="frameShadow">
+           <enum>QFrame::Sunken</enum>
+          </property>
+          <property name="verticalScrollBarPolicy">
+           <enum>Qt::ScrollBarAsNeeded</enum>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
+          </property>
+          <property name="autoScroll">
+           <bool>false</bool>
+          </property>
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectItems</enum>
           </property>
           <row>
            <property name="text">
@@ -140,8 +207,8 @@
            </property>
           </column>
           <item row="0" column="0">
-           <property name="flags">
-            <set>ItemIsSelectable|ItemIsDragEnabled|ItemIsDropEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
+           <property name="text">
+            <string/>
            </property>
           </item>
          </widget>
@@ -153,6 +220,9 @@
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Minimum</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
           <width>40</width>
@@ -163,6 +233,12 @@
       </item>
       <item>
        <widget class="QTabWidget" name="tabWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
         <property name="currentIndex">
          <number>0</number>
         </property>
@@ -188,20 +264,254 @@
          <attribute name="title">
           <string>Infos</string>
          </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_3">
+         <layout class="QHBoxLayout" name="horizontalLayout_8">
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QListView" name="listView"/>
+             <widget class="Line" name="line_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>Matrice:</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,0">
+              <item>
+               <widget class="QLabel" name="label_17">
+                <property name="text">
+                 <string>Type</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="text">
+                 <string>dropDownBtn</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="0,0">
+              <item>
+               <widget class="QLabel" name="label_18">
+                <property name="text">
+                 <string>Biparti</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QRadioButton" name="radioButton">
+                <property name="text">
+                 <string/>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="0,0">
+              <item>
+               <widget class="QLabel" name="label_7">
+                <property name="text">
+                 <string>Ordre</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>9 x 9 </string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0">
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>Connexe</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>Non</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
+              <item>
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>Carré</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>Non</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0">
+              <item>
+               <widget class="QLabel" name="label_8">
+                <property name="text">
+                 <string>Symétrique</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_9">
+                <property name="text">
+                 <string>Non</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_2">
+              <property name="text">
+               <string>Afficher Transposée</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Afficher Matrice M^n </string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_4">
+              <property name="text">
+               <string>Afficher Dijkstra</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_5">
+              <property name="text">
+               <string>Afficher Arbre Couvrant</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Minimum</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="0">
+              <item>
+               <widget class="QLabel" name="label_14">
+                <property name="text">
+                 <string>Matrice orienté:</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="0,0">
+              <item>
+               <widget class="QLabel" name="label_15">
+                <property name="text">
+                 <string>Homogène</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_16">
+                <property name="text">
+                 <string>Non</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <spacer name="verticalSpacer_7">
+              <property name="orientation">
+               <enum>Qt::Vertical</enum>
+              </property>
+              <property name="sizeType">
+               <enum>QSizePolicy::Expanding</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>20</width>
+                <height>40</height>
+               </size>
+              </property>
+             </spacer>
             </item>
            </layout>
           </item>
          </layout>
-        </widget>
-        <widget class="QWidget" name="Tab2">
-         <attribute name="title">
-          <string>Paramètres</string>
-         </attribute>
         </widget>
        </widget>
       </item>
@@ -214,7 +524,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>822</width>
      <height>21</height>
     </rect>
    </property>
@@ -228,6 +538,9 @@
    <header>matricetable.h</header>
    <slots>
     <slot>addElement()</slot>
+    <slot>removeElement()</slot>
+    <slot>updateSommet(int,int)</slot>
+    <slot>displayMatrice()</slot>
    </slots>
   </customwidget>
   <customwidget>
@@ -245,12 +558,44 @@
    <slot>addElement()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>332</x>
-     <y>200</y>
+     <x>469</x>
+     <y>185</y>
     </hint>
     <hint type="destinationlabel">
-     <x>340</x>
-     <y>464</y>
+     <x>589</x>
+     <y>490</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>tableWidget</sender>
+   <signal>cellChanged(int,int)</signal>
+   <receiver>tableWidget</receiver>
+   <slot>updateSommet(int,int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>419</x>
+     <y>308</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>392</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>tableWidget</receiver>
+   <slot>displayMatrice()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>738</x>
+     <y>264</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>559</x>
+     <y>400</y>
     </hint>
    </hints>
   </connection>

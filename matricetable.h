@@ -2,21 +2,32 @@
 #define MATRICETABLE_H
 #include <QTableWidget>
 #include <matrice.h>
+#include <vector>
+#include <dialog.h>
+using namespace std;
 
 class MatriceTable : public QTableWidget
 {
     Q_OBJECT
 public:
     explicit MatriceTable(QWidget *parent =0);
+    void changeValueCell(int line, int column,float str);
+    float getValueCell(int line,int column);
+    void updateModel();
+    void init();
+    void init(vector<float> matrice);
 
 public slots:
     void addElement();
     void removeElement();
-    void updateModel();
-private :
-    Matrice m;
-signals:
+    void updateSommet(int line,int column);
+    void displayMatrice();
 
+private :
+    Matrice matrice;
+
+signals:
+    void focusLost();
 };
 
 #endif // MATRICETABLE_H

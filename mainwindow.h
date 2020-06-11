@@ -7,6 +7,7 @@
 #include <matricetable.h>
 #include <sommet.h>
 #include <arrete.h>
+#include <dialog.h>
 
 
 QT_BEGIN_NAMESPACE
