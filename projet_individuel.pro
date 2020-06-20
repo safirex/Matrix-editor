@@ -22,6 +22,7 @@ SOURCES += \
     mainwindow.cpp \
     matrice.cpp \
     matricebutton.cpp \
+    matricenonorientee.cpp \
     matricetable.cpp \
     sommet.cpp
 
@@ -31,6 +32,7 @@ HEADERS += \
     mainwindow.h \
     matrice.h \
     matricebutton.h \
+    matricenonorientee.h \
     matricetable.h \
     sommet.h
 

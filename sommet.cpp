@@ -18,7 +18,6 @@ list<Sommet*> Sommet::listSommet{};
 Sommet::Sommet(std::string s) : name(s),listArretes{}
 {
     listArretes.get_allocator().allocate(1);
-    cout << "alive"<<endl;
     listSommet.push_back(this);
 }
 

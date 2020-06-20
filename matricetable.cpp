@@ -1,6 +1,6 @@
 #include "matricetable.h"
 #include <iostream>
-
+#include <math.h>
 using namespace std;
 
 
@@ -42,10 +42,32 @@ void MatriceTable::init()
  * used for the initialization of popup matrix table widget
  * @param matrice
  */
-void MatriceTable::init(vector<float> matrice)
+void MatriceTable::init(vector<float> vect)
 {
     cout<<"inited with vector"<<endl;
+    int nbSommet=sqrt (vect.size());
+    for (int i=0;i<nbSommet;i++)
+    {
+        int s=this->rowCount();
+        this->insertRow(s);
+        this->insertColumn(s);
+    }
 
+    for(int c=0;c<(int)vect.size();c++)
+    {
+        cout<< "round "+to_string(c)+" line "+to_string(c%nbSommet)+" col "+to_string(c/nbSommet)<<endl;
+        cout<<to_string(c) +" " +to_string(vect[c])<<endl;
+        int line=c/nbSommet,column=c%nbSommet;
+        char ch[10];
+        sprintf(ch,"%f", vect[c]);
+        setItem(line,column,new QTableWidgetItem(ch));
+
+    }
+}
+
+Matrice MatriceTable::getMatrice()
+{
+    return matrice;
 }
 
 
@@ -115,31 +137,7 @@ void MatriceTable::updateSommet(int a, int b)
     //string tmpstr=horizontalHeaderItem(b)->text().toStdString();
 }
 
-void MatriceTable::displayMatrice()
-{
-    /*
-    vector<float> tab (matrice.ordre*matrice.ordre);
-    matrice.getCalculationTab(tab);
 
-
-    string tmp="| ";
-    for (int i=0;i<matrice.ordre*matrice.ordre;i++)
-    {
-        tmp+=to_string(tab[i])+" | ";
-        if((i+1)%matrice.ordre==0)
-            tmp+="\n| ";
-    }
-    cout<<tmp<<endl;*/
-    vector<float> tab (matrice.ordre*matrice.ordre);
-    matrice.calculTransposee(tab);
-
-    Dialog dial(nullptr,tab);
-    dial.setModal(true);
-    dial.exec();
-
-
-
-}
 
 void MatriceTable::changeValueCell(int line, int column,float str)
 {
@@ -148,7 +146,7 @@ void MatriceTable::changeValueCell(int line, int column,float str)
     setItem(line,column,new QTableWidgetItem(c));
     updateSommet(line,column);
 
-    this->resizeColumnsToContents();
+    resizeColumnsToContents();
     resizeRowsToContents();
 }
 

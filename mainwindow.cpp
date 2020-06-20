@@ -15,3 +15,24 @@ MainWindow::~MainWindow()
 }
 
 
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    Matrice matrice=ui->tableWidget->getMatrice();
+    vector<float> tab (matrice.ordre*matrice.ordre);
+    matrice.calculTransposee(tab);
+     Dialog dial(nullptr,tab);
+    dial.setModal(true);
+    dial.exec();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    Matrice matrice=ui->tableWidget->getMatrice();
+    vector<float> tab (matrice.ordre*matrice.ordre);
+    int n=ui->factorNSpinBox->value();
+    matrice.calculPowN(n,tab);
+    Dialog dial(nullptr,tab);
+    dial.setModal(true);
+    dial.exec();
+}

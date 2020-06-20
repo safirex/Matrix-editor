@@ -26,6 +26,8 @@ public:
     string toString();
     void getCalculationTab(vector<float>&);
     void calculTransposee(vector<float>& emptyVector);
+    void calculPowN(int n,vector<float>& emptyVector);
+
 
 private:
     list<Sommet> listSommet;

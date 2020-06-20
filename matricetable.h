@@ -16,12 +16,12 @@ public:
     void updateModel();
     void init();
     void init(vector<float> matrice);
+    Matrice getMatrice();
 
 public slots:
     void addElement();
     void removeElement();
     void updateSommet(int line,int column);
-    void displayMatrice();
 
 private :
     Matrice matrice;

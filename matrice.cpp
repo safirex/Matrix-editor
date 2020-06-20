@@ -64,6 +64,7 @@ void Matrice::getCalculationTab(vector<float>& tab)
     }
 }
 
+//TODO: gerer vector
 void Matrice::calculTransposee(vector<float>& emptyVector)
 {
     vector<float> tab (ordre*ordre);
@@ -90,13 +91,52 @@ void Matrice::calculTransposee(vector<float>& emptyVector)
             tmp+="\n| ";
     }
     cout<<tmp<<endl;
+    emptyVector=newtab;
+}
+
+void Matrice::calculPowN(int n, vector<float> &emptyVector)
+{
+    vector<float> tab (ordre*ordre);
+    vector<float> newtab (ordre*ordre);
+    vector<float> tab2 (ordre*ordre);
+    getCalculationTab(tab);
+    newtab=tab;
+    tab2=tab;
+    int maxline=ordre;
+    int currLine=0;
+    int currCol=0;
+    for (int it=1;it<n;it++)    //number of n
+    {
+        for (int i=0;i<tab.size();i++)  //for each case of new tab
+        {
+
+            currCol=i/maxline;
+            currLine=i%maxline;
+            //newtab[i]=tab[]
+            float tmpValue=0;   //hold the value of each multiplication of the box
+            float caseValue=0;  //hold the addition of all tmpValue
+            for (int tmp=0;tmp<maxline;tmp++)
+            {
+                tmpValue=tab[currLine+tmp*maxline];
+                tmpValue=tmpValue*tab2[currCol*maxline+tmp]; //value of all box in the same line as i
+                caseValue+=tmpValue;
+            }
+            newtab[i]=caseValue;
+
+        }
+        tab2=newtab;
+        string tmp="| ";
+        for (int i=0;i<ordre*ordre;i++)
+        {
+            tmp+=to_string(newtab[i])+" | ";
+            if((i+1)%ordre==0)
+                tmp+="\n| ";
+        }
+        cout<<tmp<<endl;
 
 
-
-
-
-
-
+    }
+    emptyVector=newtab;
 }
 
 Sommet* Matrice::getSommetNum(int i)
