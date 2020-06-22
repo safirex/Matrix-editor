@@ -14,6 +14,7 @@ public:
     Arrete(Sommet *a, Sommet *b, int poid);
     Sommet* getFirst();
     Sommet* getSecond();
+    Sommet& getSecondAddr();
     string toString();
 
     void setPoid(float value);

@@ -10,6 +10,7 @@ class MatriceTable : public QTableWidget
 {
     Q_OBJECT
 public:
+
     explicit MatriceTable(QWidget *parent =0);
     void changeValueCell(int line, int column,float str);
     float getValueCell(int line,int column);
@@ -17,6 +18,7 @@ public:
     void init();
     void init(vector<float> matrice);
     Matrice getMatrice();
+    Matrice* getMatriceAddr();
 
 public slots:
     void addElement();
@@ -25,6 +27,7 @@ public slots:
 
 private :
     Matrice matrice;
+    string typesetCellValue(float f);
 
 signals:
     void focusLost();

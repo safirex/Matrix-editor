@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <matrice.h>
-#include <matricebutton.h>
 #include <matricetable.h>
 #include <sommet.h>
 #include <arrete.h>
@@ -27,6 +26,10 @@ private slots:
     void on_pushButton_2_clicked();
 
     void on_pushButton_clicked();
+
+    void on_typeChangeButton_clicked();
+
+    void on_pushButton_4_clicked();
 
 private:
     Ui::MainWindow *ui;

@@ -41,6 +41,11 @@ list<Arrete>* Sommet::getListArretes()
     return &listArretes;
 }
 
+list<Arrete> &Sommet::getAddrListArretes()
+{
+    return listArretes;
+}
+
 
 void Sommet::linkTo(Sommet* s,float value)
 {

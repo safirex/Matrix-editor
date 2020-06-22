@@ -14,6 +14,7 @@ public:
     void linkTo(Sommet* s,float value);
     std::list<Sommet*> getListSommet();
     list<Arrete>* getListArretes();
+    list<Arrete>& getAddrListArretes();
 
     string toString();
     bool isSommet(string s);

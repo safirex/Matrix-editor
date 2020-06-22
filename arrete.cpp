@@ -19,6 +19,11 @@ Sommet* Arrete::getSecond()
     return b;
 }
 
+Sommet& Arrete::getSecondAddr()
+{
+    return *b;
+}
+
 void Arrete::setPoid(float value)
 {
     poid=value;

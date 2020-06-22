@@ -4,14 +4,9 @@
 using namespace std;
 
 
-//Matrice m;
+//Matrice matrice;
 MatriceTable::MatriceTable(QWidget *parent) : QTableWidget(parent), matrice()
-{
-
-
-
-
-}
+{}
 
 
 void MatriceTable::init()
@@ -22,8 +17,6 @@ void MatriceTable::init()
         string tmp=horizontalHeaderItem(ul)->text().toStdString();
         matrice.addSommet(tmp);
     }
-
-
     //for every item, set it to 0 and create the Sommet link
     for(int ul=0;ul<columnCount();ul++)
     {
@@ -44,7 +37,6 @@ void MatriceTable::init()
  */
 void MatriceTable::init(vector<float> vect)
 {
-    cout<<"inited with vector"<<endl;
     int nbSommet=sqrt (vect.size());
     for (int i=0;i<nbSommet;i++)
     {
@@ -55,11 +47,13 @@ void MatriceTable::init(vector<float> vect)
 
     for(int c=0;c<(int)vect.size();c++)
     {
-        cout<< "round "+to_string(c)+" line "+to_string(c%nbSommet)+" col "+to_string(c/nbSommet)<<endl;
-        cout<<to_string(c) +" " +to_string(vect[c])<<endl;
         int line=c/nbSommet,column=c%nbSommet;
         char ch[10];
-        sprintf(ch,"%f", vect[c]);
+        string str=typesetCellValue(vect[c]);
+        if(vect[c]==INFINITY)
+            str="Inf";
+        //sprintf(ch,"%f", vect[c]);
+        strcpy(ch,str.c_str());
         setItem(line,column,new QTableWidgetItem(ch));
 
     }
@@ -68,6 +62,11 @@ void MatriceTable::init(vector<float> vect)
 Matrice MatriceTable::getMatrice()
 {
     return matrice;
+}
+
+Matrice* MatriceTable::getMatriceAddr()
+{
+    return &matrice;
 }
 
 
@@ -139,16 +138,37 @@ void MatriceTable::updateSommet(int a, int b)
 
 
 
-void MatriceTable::changeValueCell(int line, int column,float str)
+
+void MatriceTable::changeValueCell(int line, int column,float f)
 {
+    string strg=to_string(f);
     char c[10];
-    sprintf(c,"%f", str);
+
+    //sprintf(c,"%f", str);
+
+    strg=typesetCellValue(f);
+    strcpy(c,strg.c_str());
+
+
     setItem(line,column,new QTableWidgetItem(c));
     updateSommet(line,column);
 
     resizeColumnsToContents();
     resizeRowsToContents();
 }
+
+
+string MatriceTable::typesetCellValue(float f)
+{
+    int i=0;
+    if (matrice.type==Matrice::Type::NonOrientee)   //non orientee
+        i=f;
+        return to_string(i);
+    return to_string(f);
+
+}
+
+
 
 float MatriceTable::getValueCell(int line, int column)
 {
