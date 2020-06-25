@@ -15,6 +15,7 @@ Dialog::Dialog(QWidget *parent, std::vector<float> vect):
 {
     ui->setupUi(this);
     ui->tableWidget->init(vect);
+    ui->tableWidget->setEnabled(false);
 }
 
 Dialog::~Dialog()

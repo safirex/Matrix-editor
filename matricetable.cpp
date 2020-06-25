@@ -1,11 +1,11 @@
 #include "matricetable.h"
 #include <iostream>
 #include <math.h>
+#include <qheaderview.h>
 using namespace std;
 
-
 //Matrice matrice;
-MatriceTable::MatriceTable(QWidget *parent) : QTableWidget(parent), matrice()
+MatriceTable::MatriceTable(QWidget *parent) : QTableWidget(parent),loaded(false), matrice()
 {}
 
 
@@ -25,6 +25,7 @@ void MatriceTable::init()
             changeValueCell(li,ul,0);
         }
     }
+    loaded=true;
 }
 
 
@@ -55,7 +56,6 @@ void MatriceTable::init(vector<float> vect)
         //sprintf(ch,"%f", vect[c]);
         strcpy(ch,str.c_str());
         setItem(line,column,new QTableWidgetItem(ch));
-
     }
 }
 
@@ -69,16 +69,73 @@ Matrice* MatriceTable::getMatriceAddr()
     return &matrice;
 }
 
+void MatriceTable::displayRefresh()
+{
+    cout<<"la matrice est : "+matrice.getPondereToString()<<endl;
+
+    vector<float> vf(matrice.ordre*matrice.ordre);
+    matrice.getCalculationTab(vf);
+    int nbSomm=sqrt(vf.size());
+    for(int i=0;i<(int)vf.size();i++)
+    {
+        string strg=typesetCellValue(vf[i]);
+        QTableWidgetItem* obj=item(i/nbSomm,i%nbSomm);
 
 
-#include <qheaderview.h>
+        QString qst=obj->text();
+        string qs=qst.toStdString();
+
+        if(qs.compare(strg)!=0)
+            obj->setText(strg.c_str());
+        //setItem(i/nbSomm,i%nbSomm,new QTableWidgetItem(strg.c_str()));
+    }
+}
+
+void MatriceTable::updateTypeSetCell(int line, int column)
+{
+
+
+    float f=getValueCell(line,column);
+
+    string strg=to_string(f);
+
+    strg=typesetCellValue(f);
+    cout<<"typesetted string = "+strg<<endl;
+
+    setItem(line,column,new QTableWidgetItem(strg.c_str()));
+}
+
+void MatriceTable::setMatrice(Matrice m)
+{
+    matrice=m;
+}
+
+void MatriceTable::setNextMatrice()
+{
+    vector<float> vf;
+    matrice.getCalculationTab(vf);
+    Matrice * mat=&matrice;
+    Matrice newMat;
+    if (dynamic_cast<MatriceNOrientee*>(mat) != nullptr) {
+      // mat instance of MNO
+
+    } else {
+         // mat not instance of MNO
+        newMat= MatriceNOrientee(vf);
+    }
+
+    setMatrice(newMat);
+}
+
+
+
 void MatriceTable::addElement()
 {
     //  ajoute element dans case ligne 0 col 1
     //    this->setItem(0,1,new QTableWidgetItem("test"));
 
     int i=this->rowCount();
-   // int p=this->columnAt(i);
+    // int p=this->columnAt(i);
     this->insertRow(i);
     this->insertColumn(i);
 
@@ -90,8 +147,8 @@ void MatriceTable::addElement()
     QString qs;
     qs=qs.fromStdString(tmpstr);
 
-   // setVerticalHeaderItem(i+1, new QTableWidgetItem(qs));
-   // setHorizontalHeaderItem(i+1, new QTableWidgetItem(qs));
+    // setVerticalHeaderItem(i+1, new QTableWidgetItem(qs));
+    // setHorizontalHeaderItem(i+1, new QTableWidgetItem(qs));
     cout<<matrice.toString()<<endl;
 
 
@@ -108,6 +165,10 @@ void MatriceTable::addElement()
 
 
     changeValueCell(i,i,0);
+
+    matrice.updateValues();
+
+
 }
 
 void MatriceTable::removeElement()
@@ -129,42 +190,69 @@ void MatriceTable::updateSommet(int a, int b)
     float v=getValueCell(a,b);
     cout<< "valeur lien = "+to_string(v)<<endl;
 
-    Sommet* col=matrice.getSommetNum(b);
-    Sommet* line=matrice.getSommetNum(a);
-    line->linkTo(col,v);
-    cout<< line->toString()<<endl;
+    if(matrice.pondere==Matrice::Ponderation::non)
+         if(v!=0)
+             v=1;
+    matrice.linkTo(a,b,v);
     //string tmpstr=horizontalHeaderItem(b)->text().toStdString();
+    matrice.updateValues();
+    cout<<"connexe : "+to_string(matrice.isConnex())<<endl;
+
 }
 
 
-
-
-void MatriceTable::changeValueCell(int line, int column,float f)
+/**
+ * @brief change the value of the cell in UI and in the code
+ */
+void MatriceTable::modificateValue(int line, int column,float f)
 {
     string strg=to_string(f);
-    char c[10];
+    char c[20];
 
     //sprintf(c,"%f", str);
 
     strg=typesetCellValue(f);
+    cout<<"typesetted string = "+strg<<endl;
     strcpy(c,strg.c_str());
-
 
     setItem(line,column,new QTableWidgetItem(c));
     updateSommet(line,column);
-
-    resizeColumnsToContents();
-    resizeRowsToContents();
 }
 
+/**
+ * @brief only change the UI look of the matrix, (not modifying the matrix itself)
+ */
+void MatriceTable::changeValueCell(int line, int column,float f)
+{
+    string strg=to_string(f);
+    char c[20];
 
+    //sprintf(c,"%f", str);
+
+    strg=typesetCellValue(f);
+    cout<<"typesetted string = "+strg<<endl;
+    strcpy(c,strg.c_str());
+
+    setItem(line,column,new QTableWidgetItem(c));
+}
+
+//met la valeur en int
 string MatriceTable::typesetCellValue(float f)
 {
     int i=0;
-    if (matrice.type==Matrice::Type::NonOrientee)   //non orientee
+
+    /*if (matrice.type==Matrice::Type::NonOrientee)
         i=f;
         return to_string(i);
-    return to_string(f);
+    */
+    if(matrice.pondere==Matrice::Ponderation::non)
+    {
+        i=f;
+        if(i!=0)
+            i=1;
+        return to_string(i);
+    }
+    return to_string((int)f);
 
 }
 

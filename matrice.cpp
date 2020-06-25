@@ -9,7 +9,14 @@
 
 using namespace std;
 
-Matrice::Matrice(std::list<std::string> list): type(Type::NonOrientee),listSommet{}
+
+
+Matrice::Matrice(): type(Type::NonOrientee),pondere(Ponderation::oui),listSommet{}
+{
+    listSommet.get_allocator().allocate(1);
+}
+
+Matrice::Matrice(std::list<std::string> list): type(Type::NonOrientee),pondere(Ponderation::oui),listSommet{}
 {
     listSommet.get_allocator().allocate(1);
     for(auto const& str : list )
@@ -20,10 +27,8 @@ Matrice::Matrice(std::list<std::string> list): type(Type::NonOrientee),listSomme
 }
 
 
-Matrice::Matrice(): type(Type::NonOrientee),listSommet{}
-{
-    listSommet.get_allocator().allocate(1);
-}
+
+
 
 void Matrice::removeSommet(string s)
 {
@@ -41,19 +46,12 @@ void Matrice::removeSommet(string s)
 void Matrice::addSommet(string s)
 {
     Sommet sommet(s);
-    listSommet.push_back(s);updateValues();
+    listSommet.push_back(s);
+    updateValues();
 }
 
-string Matrice::toString()
-{
-    string tmp="matrice:\n";
-    for(auto &str : listSommet )
-    {
-        tmp+="\tSommet "+str.getName()+"\n";
-    }
-    return tmp;
-}
 
+// give the matrix values in a vector
 void Matrice::getCalculationTab(vector<float>& tab)
 {
     int i=0;
@@ -113,7 +111,6 @@ void Matrice::calculPowN(int n, vector<float> &emptyVector)
     {
         for (int i=0;i<(int)tab.size();i++)  //for each case of new tab
         {
-
             currCol=i/maxline;
             currLine=i%maxline;
             //newtab[i]=tab[]
@@ -126,7 +123,6 @@ void Matrice::calculPowN(int n, vector<float> &emptyVector)
                 caseValue+=tmpValue;
             }
             newtab[i]=caseValue;
-
         }
         tab2=newtab;
         string tmp="| ";
@@ -137,8 +133,6 @@ void Matrice::calculPowN(int n, vector<float> &emptyVector)
                 tmp+="\n| ";
         }
         cout<<tmp<<endl;
-
-
     }
     emptyVector=newtab;
 }
@@ -150,8 +144,8 @@ void Matrice::calculateDijkstra(Sommet &s, vector<float> &emptyVector)
     vector<float> newtab;
     getCalculationTab(tab);
     vector<Sommet*> outedSommetList(ordre);
-    //while (newtab!=tab)
-    //{
+
+
     tab=newtab;
 
     // first loop
@@ -164,7 +158,8 @@ void Matrice::calculateDijkstra(Sommet &s, vector<float> &emptyVector)
 
     //all next loop
     fillVoisin(newtab,s,vs);
-    //}
+
+
     cout<<"matrice be like :"<<endl;
     string tmp="| ";
     for (int i=0;i<newtab.size();i++)
@@ -198,13 +193,13 @@ void Matrice::fillVoisin(vector<float> &DijkstraMap, Sommet & sommet, vector<Som
     {
         //switch
         int posSommet2=getPosSommet(it->getSecond());
-        float poidSommet2=DijkstraMap[lastLine+posSommet2];
+        float poidsNextSommet=DijkstraMap[lastLine+posSommet2];
         cout<<"poid distrib = "+to_string(poidSommet+it->getPoid())<<endl;
         cout<<"/tpoidsommet "+to_string(poidSommet)+"/tpoid arrete "+to_string(it->getPoid())<<endl;
 
-        if(poidSommet2>poidSommet+it->getPoid() || poidSommet2==infValue)
+        if(poidsNextSommet>poidSommet+it->getPoid() || poidsNextSommet==infValue)
         {
-            if(poidSommet==0)
+           if(it->getPoid()==0) // 0 equals no link
                 continue;
 
             DijkstraMap[lastLine+ordre+posSommet2]=poidSommet+it->getPoid();
@@ -256,6 +251,14 @@ void Matrice::setNextType()
          type=Type::Orientee;
 
 }
+
+void Matrice::setNextPonderation()
+{
+    if(pondere==Ponderation::oui)
+        pondere=Ponderation::non;
+    else
+        pondere=Ponderation::oui;
+}
 string Matrice::getTypeToString()
 {
     if(type==Type::Orientee)
@@ -263,6 +266,23 @@ string Matrice::getTypeToString()
     if(type==Type::NonOrientee)
         return "Non Orientée";
     return "";
+}
+
+string Matrice::getPondereToString()
+{
+    if(pondere==Ponderation::oui)
+        return "Pondéré";
+    if(pondere==Ponderation::non)
+        return "Non Pondéré";
+    return "";
+}
+
+void Matrice::linkTo(int a, int b, int value)
+{
+
+    Sommet* col=getSommetNum(b);
+    Sommet* line=getSommetNum(a);
+    line->linkTo(col,value);
 }
 
 
@@ -307,10 +327,17 @@ int Matrice::getPosSommet(Sommet &s)
     return -1;
 }
 
+list<Sommet> Matrice::getListSommet()
+{
+    return listSommet;
+}
+
 void Matrice::updateValues()
 {
     updateTaille();
     updateOrdre();
+    updateSymetrie();
+    updateConnexe();
 }
 
 void Matrice::updateTaille()
@@ -323,3 +350,42 @@ void Matrice::updateOrdre()
     ordre=listSommet.size();
 }
 
+void Matrice::updateSymetrie()
+{
+    /*
+    if(type==Type::NonOrientee)
+        symetrique=true;
+    else{
+
+    }*/
+}
+
+void Matrice::updateConnexe()
+{
+    bool tmp=true;
+    vector<float> vf(ordre*ordre);
+    calculPowN(ordre,vf);
+    for(int i=0;i<(int)vf.size();i++)
+    {
+        if(vf[i]==0.0)
+        {
+            tmp=false;
+            break;
+        }
+    }
+    connexe=tmp;
+}
+
+bool Matrice::isConnex()
+{
+    return connexe;
+}
+string Matrice::toString()
+{
+    string tmp="matrice:\n";
+    for(auto &str : listSommet )
+    {
+        tmp+="\tSommet "+str.getName()+"\n";
+    }
+    return tmp;
+}

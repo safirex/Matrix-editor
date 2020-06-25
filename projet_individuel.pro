@@ -18,17 +18,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     arrete.cpp \
     dialog.cpp \
+    dropdownbutton.cpp \
+    graphicview.cpp \
     main.cpp \
     mainwindow.cpp \
     matrice.cpp \
+    matricenorientee.cpp \
     matricetable.cpp \
     sommet.cpp
 
 HEADERS += \
     arrete.h \
     dialog.h \
+    dropdownbutton.h \
+    graphicview.h \
     mainwindow.h \
     matrice.h \
+    matricenorientee.h \
     matricetable.h \
     sommet.h
 

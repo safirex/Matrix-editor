@@ -7,7 +7,7 @@
 #include <vector>
 using namespace std;
 class Sommet;
-
+class MatriceNOrientee;
 class Matrice
 {
 public:
@@ -15,16 +15,22 @@ public:
     {
         Orientee=0,
         NonOrientee=1
+    };
 
+    enum class Ponderation
+    {
+        oui=1,
+        non=0
     };
 
     Type type;
-     bool orientee,probabiliste,symetrique;
+    Ponderation pondere;
+     bool orientee,probabiliste,symetrique,connexe;
     int taille,ordre;
 
     Matrice();
     Matrice(list<string> list);
-     Matrice getConnexPath();
+    Matrice getConnexPath();
     bool isConnex();
     void removeSommet(string s);
     void addSommet(string s);
@@ -36,14 +42,19 @@ public:
     void calculateDijkstra(Sommet& s,vector<float>& emptyVector);
     int getPosSommet(Sommet* s);
     int getPosSommet(Sommet& s);
-
+    list<Sommet> getListSommet();
+    void updateValues();
     void setNextType();
+    void setNextPonderation();
     string getTypeToString();
+    string getPondereToString();
+    virtual void linkTo(int a, int b, int value);
 private:
     list<Sommet> listSommet;
-    void updateValues();
     void updateTaille();
     void updateOrdre();
+    void updateSymetrie();
+    void updateConnexe();
     void fillVoisin(vector<float> &DijkstraMap,Sommet & sommet,vector<Sommet*>&outList);
 
 };
