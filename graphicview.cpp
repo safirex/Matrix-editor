@@ -16,11 +16,11 @@ void GraphicView::drawSommet(int x, int y, string str)
     x=x-15; //offset to get in x y in the center
     y=y-15;
 
-    QBrush redbrush(Qt::red);
+    QBrush brush(Qt::lightGray);
     QPen pen(Qt::black);
     pen.setWidth(5);
     QRect rect(x,y,30,30);
-    scene->addEllipse(rect,pen,redbrush);
+    scene->addEllipse(rect,pen,brush);
 
     QString qs=qs.fromStdString(str);
     QGraphicsTextItem *text = scene->addText(qs);
@@ -65,13 +65,6 @@ void GraphicView::updateDisplay()
     cout<<"taille de la matrice "<<sqrt(vf.size())<<endl;
     int nbSommet=sqrt(vf.size());
 
-    for(int i=0;i<(int)matrice.getListSommet().size();i++)
-    {
-        int x=100*cos(i*PI*2/nbSommet);
-        int y=100*sin(i*PI*2/nbSommet);
-        drawSommet(x,y,to_string(i+1));
-    }
-
     for(int i=0;i<vf.size();i++)
     {
         if(vf[i]!=0)
@@ -80,6 +73,13 @@ void GraphicView::updateDisplay()
             int column=i%nbSommet;
             drawArrete(line,column,false,vf[i]);
         }
+    }
+
+    for(int i=0;i<(int)matrice.getListSommet().size();i++)
+    {
+        int x=100*cos(i*PI*2/nbSommet);
+        int y=100*sin(i*PI*2/nbSommet);
+        drawSommet(x,y,to_string(i+1));
     }
 
     setScene(scene);

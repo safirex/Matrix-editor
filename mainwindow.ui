@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>822</width>
-    <height>526</height>
+    <height>557</height>
    </rect>
   </property>
   <property name="font">
@@ -303,6 +303,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout_14" stretch="0,0">
               <item>
                <widget class="QLabel" name="label_17">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Type</string>
                 </property>
@@ -310,6 +313,9 @@
               </item>
               <item>
                <widget class="QPushButton" name="typeChangeButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
                   <horstretch>0</horstretch>
@@ -345,6 +351,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout_15" stretch="0,0">
               <item>
                <widget class="QLabel" name="label_18">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Biparti</string>
                 </property>
@@ -352,6 +361,9 @@
               </item>
               <item>
                <widget class="QRadioButton" name="radioButton">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string/>
                 </property>
@@ -399,6 +411,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout_6" stretch="0,0">
               <item>
                <widget class="QLabel" name="label_5">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Carré</string>
                 </property>
@@ -406,6 +421,9 @@
               </item>
               <item>
                <widget class="QLabel" name="label_6">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Non</string>
                 </property>
@@ -417,6 +435,9 @@
              <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="0,0">
               <item>
                <widget class="QLabel" name="label_8">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Symétrique</string>
                 </property>
@@ -424,6 +445,9 @@
               </item>
               <item>
                <widget class="QLabel" name="label_Symetrie">
+                <property name="enabled">
+                 <bool>false</bool>
+                </property>
                 <property name="text">
                  <string>Non</string>
                 </property>
@@ -495,72 +519,6 @@
                 </property>
                 <property name="autoRaise">
                  <bool>false</bool>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_5">
-              <property name="text">
-               <string>Afficher Arbre Couvrant</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <spacer name="verticalSpacer_5">
-              <property name="orientation">
-               <enum>Qt::Vertical</enum>
-              </property>
-              <property name="sizeType">
-               <enum>QSizePolicy::Minimum</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>20</width>
-                <height>40</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="Line" name="line_2">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_12" stretch="0">
-              <item>
-               <widget class="QLabel" name="label_14">
-                <property name="text">
-                 <string>Matrice orienté:</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
-            <item>
-             <widget class="Line" name="line_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_13" stretch="0,0">
-              <item>
-               <widget class="QLabel" name="label_15">
-                <property name="text">
-                 <string>Homogène</string>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="QLabel" name="label_16">
-                <property name="text">
-                 <string>Non</string>
                 </property>
                </widget>
               </item>

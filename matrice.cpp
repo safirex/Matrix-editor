@@ -73,15 +73,16 @@ void Matrice::calculTransposee(vector<float>& emptyVector)
     vector<float> newtab (ordre*ordre);
     getCalculationTab(tab);
     int maxline=ordre;
-    int currLine=0;
     int currCol=0;
+    int currLine=0;
     for (int i=0;i<(int)tab.size();i++)
     {
-        currCol=i/maxline;
-        currLine=i%maxline;
+        currLine=i/maxline;
+        currCol=i%maxline;
         // if(currLine!=currCol)
-        newtab[i]=tab[currLine*maxline+currCol];
-        cout<<"line "+to_string(currLine)+" col "+to_string(currCol)<<endl;
+        newtab[i]=tab[currCol*maxline+currLine];
+
+        cout<<"line "+to_string(currCol)+" col "+to_string(currLine)<<endl;
 
     }
 
@@ -118,7 +119,7 @@ void Matrice::calculPowN(int n, vector<float> &emptyVector)
             float caseValue=0;  //hold the addition of all tmpValue
             for (int tmp=0;tmp<maxline;tmp++)
             {
-                tmpValue=tab[currLine+tmp*maxline];
+                tmpValue=tab2[currLine+tmp*maxline];
                 tmpValue=tmpValue*tab2[currCol*maxline+tmp]; //value of all box in the same line as i
                 caseValue+=tmpValue;
             }
@@ -178,7 +179,9 @@ void Matrice::fillVoisin(vector<float> &DijkstraMap, Sommet & sommet, vector<Som
 {
     cout<<"fill voisin point: "+sommet.getName()+"  pos: "+to_string(getPosSommet(&sommet))<<endl;
     float infValue=numeric_limits<float>::infinity();
-    int lastLine=((DijkstraMap.size()/ordre)-1)*ordre;    //get to first elem of last line
+    int lastLine= DijkstraMap.size()-ordre ; //get to first elem of last line
+
+
     float poidSommet=DijkstraMap[lastLine+getPosSommet(sommet)];
 
     for(int i=lastLine;i<lastLine+ordre;i++){   //copy the last line of the weight list
@@ -195,7 +198,7 @@ void Matrice::fillVoisin(vector<float> &DijkstraMap, Sommet & sommet, vector<Som
         int posSommet2=getPosSommet(it->getSecond());
         float poidsNextSommet=DijkstraMap[lastLine+posSommet2];
         cout<<"poid distrib = "+to_string(poidSommet+it->getPoid())<<endl;
-        cout<<"/tpoidsommet "+to_string(poidSommet)+"/tpoid arrete "+to_string(it->getPoid())<<endl;
+        cout<<"\tpoidsommet "+to_string(poidSommet)+"\tpoid arrete "+to_string(it->getPoid())<<endl;
 
         if(poidsNextSommet>poidSommet+it->getPoid() || poidsNextSommet==infValue)
         {

@@ -226,13 +226,9 @@ void MatriceTable::changeValueCell(int line, int column,float f)
 {
     string strg=to_string(f);
     char c[20];
-
-    //sprintf(c,"%f", str);
-
     strg=typesetCellValue(f);
     cout<<"typesetted string = "+strg<<endl;
     strcpy(c,strg.c_str());
-
     setItem(line,column,new QTableWidgetItem(c));
 }
 
