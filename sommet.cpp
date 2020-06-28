@@ -15,6 +15,13 @@
 using namespace std;
 list<Sommet*> Sommet::listSommet{};
 
+
+
+
+
+Sommet::Sommet()
+{}
+
 Sommet::Sommet(std::string s) : name(s),listArretes{}
 {
     listArretes.get_allocator().allocate(1);

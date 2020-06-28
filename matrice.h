@@ -25,13 +25,14 @@ public:
 
     Type type;
     Ponderation pondere;
-     bool orientee,probabiliste,symetrique,connexe;
+     bool orientee,probabiliste,symetrique,connexe,fortementConnexe;
     int taille,ordre;
 
     Matrice();
     Matrice(list<string> list);
     Matrice getConnexPath();
     bool isConnex();
+    bool isFortementConnex();
     void removeSommet(string s);
     void addSommet(string s);
     Sommet* getSommetNum(int i);
@@ -55,6 +56,8 @@ private:
     void updateOrdre();
     void updateSymetrie();
     void updateConnexe();
+
+    void updateFortementConnexe();
     void fillVoisin(vector<float> &DijkstraMap,Sommet & sommet,vector<Sommet*>&outList);
 
 };

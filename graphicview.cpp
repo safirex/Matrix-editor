@@ -65,7 +65,7 @@ void GraphicView::updateDisplay()
     cout<<"taille de la matrice "<<sqrt(vf.size())<<endl;
     int nbSommet=sqrt(vf.size());
 
-    for(int i=0;i<vf.size();i++)
+    for(int i=0;i<(int)vf.size();i++)
     {
         if(vf[i]!=0)
         {

@@ -30,12 +30,12 @@ void MainWindow::updateInfoContent()
     qs=qs.fromStdString(to_string(matrice.ordre));
     ui->label_Ordre->setText(qs);
 
-
+    /*
     QString symetrie;
     if(matrice.type==Matrice::Type::NonOrientee)
         symetrie=symetrie.fromStdString("oui");
     ui->label_Symetrie->setText(symetrie);
-
+    */
 
     QString connexe;
     if(matrice.isConnex())
@@ -43,6 +43,14 @@ void MainWindow::updateInfoContent()
     else
         connexe=connexe.fromStdString("non");
     ui->label_Connexe->setText(connexe);
+
+    QString fortementConnexe;
+    if(matrice.isFortementConnex())
+        fortementConnexe=fortementConnexe.fromStdString("oui");
+    else
+        fortementConnexe=fortementConnexe.fromStdString("non");
+    ui->label_FortementConnexe->setText(fortementConnexe);
+
 
 }
 
@@ -55,6 +63,8 @@ void MainWindow::on_pushButton_2_clicked()
     matrice.calculTransposee(tab);
     Dialog dial(nullptr,tab);
     dial.setModal(true);
+
+    dial.setWindowTitle("Transposée");
     dial.exec();
 }
 
@@ -66,6 +76,8 @@ void MainWindow::on_pushButton_clicked()
     matrice.calculPowN(n,tab);
     Dialog dial(nullptr,tab);
     dial.setModal(true);
+
+    dial.setWindowTitle("M^n");
     dial.exec();
 }
 
@@ -77,7 +89,7 @@ void MainWindow::on_typeChangeButton_clicked()
     char ch[30];
     strcpy(ch,matrice->getTypeToString().c_str());
     QString qs(ch);
-    ui->typeChangeButton->setText(qs);
+    //ui->typeChangeButton->setText(qs);
     ui->tableWidget->displayRefresh();
 }
 
@@ -104,12 +116,13 @@ void MainWindow::on_pushButton_Dijkstra_clicked()
     vector<float> tab (matrice.ordre*matrice.ordre);
     //int n=ui->factorNSpinBox->value();
 
-    Sommet* s =matrice.getSommetNum(1);
+    Sommet* s =matrice.getSommetNum(0);
     cout<<s->getName()+" pos = "+to_string(matrice.getPosSommet(s))<<endl;
     matrice.calculateDijkstra(*s,tab);
     cout<<"still ok"<<endl;
-    Dialog dial(nullptr,tab);
+    Dialog dial(this,tab);
     dial.setModal(true);
+    dial.setWindowTitle("Dijkstra");
     dial.exec();
 }
 

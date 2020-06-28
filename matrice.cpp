@@ -126,14 +126,14 @@ void Matrice::calculPowN(int n, vector<float> &emptyVector)
             newtab[i]=caseValue;
         }
         tab2=newtab;
-        string tmp="| ";
+        /*string tmp="| ";
         for (int i=0;i<ordre*ordre;i++)
         {
             tmp+=to_string(newtab[i])+" | ";
             if((i+1)%ordre==0)
                 tmp+="\n| ";
         }
-        cout<<tmp<<endl;
+        cout<<tmp<<endl;*/
     }
     emptyVector=newtab;
 }
@@ -141,19 +141,11 @@ void Matrice::calculPowN(int n, vector<float> &emptyVector)
 void Matrice::calculateDijkstra(Sommet &s, vector<float> &emptyVector)
 {
     updateOrdre();
-    vector<float> tab (ordre*ordre);
-    vector<float> newtab;
-    getCalculationTab(tab);
-    vector<Sommet*> outedSommetList(ordre);
-
-
-    tab=newtab;
 
     // first loop
-    vector<float>vf(ordre,numeric_limits<float>::infinity());
-    newtab=vf;
+    vector<float>newtab(ordre,numeric_limits<float>::infinity());
+
     int pos=getPosSommet(&s);
-    cout<<"pos =  "+to_string(pos)<<endl;
     newtab[pos]=0.0;
     vector<Sommet*>vs;
 
@@ -177,6 +169,11 @@ void Matrice::calculateDijkstra(Sommet &s, vector<float> &emptyVector)
 
 void Matrice::fillVoisin(vector<float> &DijkstraMap, Sommet & sommet, vector<Sommet *> &outList)
 {
+    Sommet* nextSommet;
+    float nextSommetValue=numeric_limits<float>::infinity();
+
+    outList.push_back(&sommet);
+
     cout<<"fill voisin point: "+sommet.getName()+"  pos: "+to_string(getPosSommet(&sommet))<<endl;
     float infValue=numeric_limits<float>::infinity();
     int lastLine= DijkstraMap.size()-ordre ; //get to first elem of last line
@@ -202,11 +199,31 @@ void Matrice::fillVoisin(vector<float> &DijkstraMap, Sommet & sommet, vector<Som
 
         if(poidsNextSommet>poidSommet+it->getPoid() || poidsNextSommet==infValue)
         {
-           if(it->getPoid()==0) // 0 equals no link
-                continue;
-
-            DijkstraMap[lastLine+ordre+posSommet2]=poidSommet+it->getPoid();
+            if(it->getPoid()!=0) // 0 equals no link
+                DijkstraMap[lastLine+ordre+posSommet2]=poidSommet+it->getPoid();
         }
+
+
+        bool roar=true;
+        for (auto somm : outList)
+        {
+            if(somm->getName().compare(it->getSecond()->getName())==0)
+                roar=false;
+
+        }
+        if(roar)
+        {
+            // v does not contain x
+            if(nextSommetValue==infValue ||
+                    nextSommetValue>DijkstraMap[lastLine+ordre+getPosSommet(it->getSecondAddr())])
+            {
+                nextSommet=&it->getSecondAddr();
+                nextSommetValue=DijkstraMap[lastLine+ordre+getPosSommet(it->getSecondAddr())];
+            }
+        }
+
+
+
     }
 
 
@@ -219,8 +236,13 @@ void Matrice::fillVoisin(vector<float> &DijkstraMap, Sommet & sommet, vector<Som
     }
     cout<<tmp<<endl;
 
-    outList.push_back(&sommet);
-    if((int)outList.size()<ordre)
+    if(outList.size()<ordre)
+        fillVoisin(DijkstraMap,*nextSommet,outList);
+
+
+
+    /*
+    if((int)outList.size()<=ordre)
     {
         for (it=arrList->begin();it!=arrList->end();it++)   //for each arrete of actual Sommet
         {
@@ -237,7 +259,7 @@ void Matrice::fillVoisin(vector<float> &DijkstraMap, Sommet & sommet, vector<Som
                 cout<<"Nouveau Sommet = "+it->getSecond()->getName()<<endl;
             }
         }
-    }
+    }*/
 
 }
 
@@ -251,7 +273,7 @@ void Matrice::setNextType()
     if(type==Type::Orientee)
         type=Type::NonOrientee;
     else if(type==Type::NonOrientee)
-         type=Type::Orientee;
+        type=Type::Orientee;
 
 }
 
@@ -340,7 +362,7 @@ void Matrice::updateValues()
     updateTaille();
     updateOrdre();
     updateSymetrie();
-    updateConnexe();
+    updateConnexe();updateFortementConnexe();
 }
 
 void Matrice::updateTaille()
@@ -365,6 +387,28 @@ void Matrice::updateSymetrie()
 
 void Matrice::updateConnexe()
 {
+    int tab[ordre];
+    vector<float> vf(ordre*ordre);
+    getCalculationTab(vf);
+    for(int i=0;i<(int)vf.size();i++)
+    {
+        if(vf[i]!=0)
+        {
+            tab[i/ordre]=1;
+            tab[i%ordre]=1;
+        }
+    }
+    bool tmp=true;
+    for(int it=0;it<ordre;it++){
+        if (tab[it]!=1)
+            tmp=false;
+    }
+    connexe=tmp;
+}
+
+void Matrice::updateFortementConnexe()
+{
+
     bool tmp=true;
     vector<float> vf(ordre*ordre);
     calculPowN(ordre,vf);
@@ -376,12 +420,19 @@ void Matrice::updateConnexe()
             break;
         }
     }
-    connexe=tmp;
+    fortementConnexe=tmp;
 }
+
+
 
 bool Matrice::isConnex()
 {
     return connexe;
+}
+
+bool Matrice::isFortementConnex()
+{
+    return fortementConnexe;
 }
 string Matrice::toString()
 {

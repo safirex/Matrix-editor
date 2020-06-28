@@ -7,7 +7,7 @@ using namespace std;
 class Sommet
 {
 public:
-
+    Sommet ();
     Sommet(std::string f);
     void linkTo(std::string s);
     void linkTo(Sommet* s);
